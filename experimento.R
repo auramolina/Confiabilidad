@@ -35,9 +35,11 @@ ggplot(datos, aes(x = datos$`Cuerda 4`)) +
 
 fitdistr(datos$`Cuerda 3`, "poisson")
 ks.test(datos$`Cuerda 3`, "ppois", 22.725)
+summary(goodfit(datos$`Cuerda 3`, "poisson"))
 
 fitdistr(datos$`Cuerda 4`, "poisson")
 ks.test(datos$`Cuerda 4`, "ppois", 27.2875)
+summary(goodfit(datos$`Cuerda 4`, "poisson"))
 
 # Geométrica ~ NO
 
@@ -64,31 +66,36 @@ fdp4 <- dnbinom(datos$`Cuerda 4`, size = 3.1573296, mu = 27.2875, log = FALSE)
 
 # Probabilidad de falla
 
+pnbinom(80, size = 3.3201871, mu = 22.725, log = FALSE)
 Ft3 <- pnbinom(datos$`Cuerda 3`, size = 3.3201871, mu = 22.725, log = FALSE)
 ggplot(datos, aes(x = `Cuerda 3`, y = Ft3)) +
-  geom_line(color = "blue") +
+  geom_line(color = "lightblue2", size = 1) +
   labs(title = "Probabilidad de falla - Cuerda 3")+
   theme_bw()
 
+pnbinom(80, size = 3.1573296, mu = 27.2875, log = FALSE)
 Ft4 <- pnbinom(datos$`Cuerda 4`, size = 3.1573296, mu = 27.2875, log = FALSE)
 ggplot(datos, aes(x = `Cuerda 4`, y = Ft4)) +
-  geom_line(color = "blue") +
+  geom_line(color = "lightblue2", size = 1) +
   labs(title = "Probabilidad de falla - Cuerda 4")+
   theme_bw()
 
 #Confiabilidad
 
+1 - pnbinom(80, size = 3.3201871, mu = 22.725, log = FALSE)
 Rt3 <- 1 - Ft3 
 ggplot(datos, aes(x = `Cuerda 3`, y = Rt3)) +
-  geom_line(color = "blue") +
+  geom_line(color = "lightblue2", size = 1) +
   labs(title = "Confiabilidad - Cuerda 3") +
   theme_bw()
 
+1 - pnbinom(1, size = 3.1573296, mu = 27.2875, log = FALSE)
 Rt4 <- 1 - Ft4
 ggplot(datos, aes(x = `Cuerda 4`, y = Rt4)) +
-  geom_line(color = "blue") +
+  geom_line(color = "lightblue2", size = 1) +
   labs(title = "Confiabilidad - Cuerda 4") +
   theme_bw()
+pnbinom(80, size = 3.1573296, mu = 27.2875, log = FALSE)
 
 #Tasa de falla
 
@@ -100,10 +107,9 @@ ggplot(datos, aes(x = `Cuerda 3`, y = h3)) +
 
 h4 <- fdp4/Rt4
 ggplot(datos, aes(x = `Cuerda 4`, y = h4)) +
-  geom_line(color = "blue") +
+  geom_line(color = "lightblue2", size = 1) +
   labs(title = "Tasa de falla - Cuerda 4") +
   theme_bw()
-
 
 
 
